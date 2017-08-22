@@ -10,13 +10,18 @@
     <bean id="client" class="my.epam.spring.core.beans.Client">
         <constructor-arg value="1"/>
         <constructor-arg value="John Snow"/>
+        <property name="greeting" value="Hello there!"/>
     </bean>
-
-    <bean id="eventLogger" class="my.epam.spring.core.loggers.ConsoleEventLogger"/>
 
     <bean id="app" class="my.epam.spring.core.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="eventLogger"/>
+                <entry key="ERROR" value-ref="fileLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
 
     <bean id="event" class="my.epam.spring.core.beans.Event" scope="prototype">
@@ -27,14 +32,5 @@
     </bean>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
-
-    <bean id="fileLogger" class="my.epam.spring.core.loggers.FileEventLogger" init-method="init" abstract="true">
-        <constructor-arg value="log.txt"/>
-    </bean>
-
-    <bean id="cacheFileLogger" class="my.epam.spring.core.loggers.CacheFileEventLogger" parent="fileLogger"
-          destroy-method="destroy">
-        <constructor-arg value="10"/>
-    </bean>
 
 </beans>

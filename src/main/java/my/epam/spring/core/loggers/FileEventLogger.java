@@ -20,13 +20,13 @@ public class FileEventLogger implements EventLogger {
 
     public void init() throws IOException {
         file = new File(fileName);
- /*       if (!file.canWrite()) {
+        if (!file.canWrite()) {
             throw new IOException();
-        }*/
+        }
     }
 
     @Override
     public void logEvent(Event event) throws IOException {
-        FileUtils.writeStringToFile(file, event.toString(), true);
+        FileUtils.writeStringToFile(file, event.toString() + "\n", true);
     }
 }
