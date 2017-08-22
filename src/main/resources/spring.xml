@@ -7,10 +7,20 @@
 
     <import resource="loggers.xml"/>
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:client.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="false" />
+        <!--<property name="systemPropertiesMode" value="override"/>-->
+    </bean>
+
     <bean id="client" class="my.epam.spring.core.beans.Client">
-        <constructor-arg value="1"/>
-        <constructor-arg value="John Snow"/>
-        <property name="greeting" value="Hello there!"/>
+        <constructor-arg value="{$id}"/>
+        <constructor-arg value="{$name}"/>
+        <property name="greeting" value="{$greeting}"/>
     </bean>
 
     <bean id="app" class="my.epam.spring.core.App">
@@ -32,5 +42,7 @@
     </bean>
 
     <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+
+
 
 </beans>

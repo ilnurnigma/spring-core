@@ -35,7 +35,9 @@ public class App {
             logger = defaultLogger;
         }
 
+        System.out.println(client);
         Event event = (Event) context.getBean("event");
+        msg = client.getGreeting() + " " + msg.replace(client.getId(), client.getFullName());
         event.setMsg(msg);
         logger.logEvent(event);
 
