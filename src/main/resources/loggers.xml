@@ -5,28 +5,7 @@
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 
-    <import resource="loggers.xml"/>
-
-    <bean id="client" class="my.epam.spring.core.beans.Client">
-        <constructor-arg value="1"/>
-        <constructor-arg value="John Snow"/>
-    </bean>
-
     <bean id="eventLogger" class="my.epam.spring.core.loggers.ConsoleEventLogger"/>
-
-    <bean id="app" class="my.epam.spring.core.App">
-        <constructor-arg ref="client"/>
-        <constructor-arg ref="cacheFileLogger"/>
-    </bean>
-
-    <bean id="event" class="my.epam.spring.core.beans.Event" scope="prototype">
-        <constructor-arg>
-            <bean class="java.util.Date"/>
-        </constructor-arg>
-        <constructor-arg ref="dateFormat"/>
-    </bean>
-
-    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 
     <bean id="fileLogger" class="my.epam.spring.core.loggers.FileEventLogger" init-method="init" abstract="true">
         <constructor-arg value="log.txt"/>
