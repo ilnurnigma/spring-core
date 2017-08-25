@@ -2,13 +2,18 @@ package my.epam.spring.core;
 
 import my.epam.spring.core.beans.Client;
 import my.epam.spring.core.beans.Event;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component
 public class App {
+    @Autowired
     private Client client;
+
     private EventLogger defaultLogger;
     private Map<EventType, EventLogger> loggers;
     private static ConfigurableApplicationContext context;
