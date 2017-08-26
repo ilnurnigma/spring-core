@@ -1,18 +1,21 @@
 package my.epam.spring.core.beans;
 
+import org.springframework.stereotype.Component;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Random;
 
+@Component
 public class Event {
     private int id = new Random().nextInt();
     private String msg;
     private Date date;
     private DateFormat dateFormat;
 
-    public Event(Date date, DateFormat dateFormat) {
-        this.date = date;
-        this.dateFormat = dateFormat;
+    public Event() {
+        this.date = new Date();
+        this.dateFormat = DateFormat.getDateTimeInstance();
     }
 
     public String getMsg() {

@@ -6,11 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component("client")
 public class Client {
+
     private String id;
     private String fullName;
+
+    @Value("${greeting}")
     private String greeting;
 
-    public Client(String id, String fullName) {
+    public Client(@Value("${id}") String id, @Value("${name}") String fullName) {
         this.id = id;
         this.fullName = fullName;
     }

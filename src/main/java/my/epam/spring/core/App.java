@@ -3,10 +3,13 @@ package my.epam.spring.core;
 import my.epam.spring.core.beans.Client;
 import my.epam.spring.core.beans.Event;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Component
@@ -14,18 +17,23 @@ public class App {
     @Autowired
     private Client client;
 
+
     private EventLogger defaultLogger;
     private Map<EventType, EventLogger> loggers;
-    private static ConfigurableApplicationContext context;
+    private static AnnotationConfigApplicationContext context;
 
-    public App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggers) {
+    public App(Client client, @Qualifier("cacheFileLogger") EventLogger defaultLogger, @Qualifier("loggerMap") Map<EventType, EventLogger> loggers) {
         this.client = client;
         this.defaultLogger = defaultLogger;
         this.loggers = loggers;
     }
 
     public static void main(String[] args) throws Exception {
-        context = new ClassPathXmlApplicationContext("spring.xml");
+//        context = new ClassPathXmlApplicationContext("spring.xml");
+        context = new AnnotationConfigApplicationContext();
+//        context.register(AppConfig.class);
+        context.scan("my.epam.spring.core");
+        context.refresh();
 
         App app = (App) context.getBean("app");
         app.logEvent(EventType.INFO, "My some message1");
