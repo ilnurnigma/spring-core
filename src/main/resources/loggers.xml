@@ -11,6 +11,10 @@
         <constructor-arg value="log.txt"/>
     </bean>
 
+    <bean id="dbLogger" class="my.epam.spring.core.loggers.DBLogger" init-method="init" destroy-method="destroy">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
     <bean id="cacheFileLogger" class="my.epam.spring.core.loggers.CacheFileEventLogger" parent="fileLogger"
           destroy-method="destroy">
         <constructor-arg value="10"/>

@@ -31,4 +31,8 @@ public class Event {
                 ", date=" + dateFormat.format(date) +
                 '}';
     }
+
+    public int getId() {
+        return id;
+    }
 }
